@@ -14,14 +14,5 @@ public class Main {
 
         Consumer consumer = new Consumer(queue);
         consumer.startConsuming();
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            // ignore this exception and allow main method to exit
-        } finally {
-            producer.stopProducing();
-            consumer.stopConsuming();
-        }
     }
 }

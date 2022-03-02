@@ -20,6 +20,8 @@ public class Consumer {
     private BlockingQueue<Message> queue;
     private Thread consumerThread = null;
 
+    private int messageCounter = 0;
+
     public Consumer(BlockingQueue<Message> queue) {
         this.queue = queue;
     }
@@ -30,9 +32,10 @@ public class Consumer {
             public void run() {
                 List<Message> messages = new ArrayList<>();
                 setUpLogger();
-                while (true) {
+                while (messageCounter != 100) {
                     try {
                         Message message = queue.take();
+                        messageCounter++;
                         messages.add(message);
                         if (messages.size() == 10) {
                             logMessages(messages);
@@ -53,10 +56,6 @@ public class Consumer {
             logger.info(message);
         }
         messages.clear();
-    }
-
-    public void stopConsuming() {
-        consumerThread.interrupt();
     }
 
     private void setUpLogger() {

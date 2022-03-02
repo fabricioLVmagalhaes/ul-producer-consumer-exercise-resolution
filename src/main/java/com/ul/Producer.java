@@ -30,9 +30,4 @@ public class Producer {
             }
         }).start();
     }
-
-    public void stopProducing() {
-        // set message counter to maximum number of messages to stop loop, allowing thread to exit
-        messageCounter = 100;
-    }
 }
