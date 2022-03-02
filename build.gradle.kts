@@ -12,7 +12,8 @@ repositories {
     mavenCentral()
 }
 dependencies {
-
+    // https://mvnrepository.com/artifact/log4j/log4j
+    implementation("log4j:log4j:1.2.16")
 }
 application {
     mainClass.set("com.ul.Main")
