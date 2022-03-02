@@ -3,6 +3,8 @@
  */
 package com.ul;
 
+import java.util.Date;
+
 public class Message {
 
     public enum Priority {
@@ -30,5 +32,12 @@ public class Message {
 
     public String getText() {
         return text;
+    }
+
+    @Override
+    public String toString() {
+        return "Priority: " + priority +
+                ", Date: " + new Date(timestamp) +
+                ", " + text;
     }
 }
