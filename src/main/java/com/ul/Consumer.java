@@ -3,7 +3,10 @@
  */
 package com.ul;
 
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 public class Consumer {
 
@@ -18,10 +21,14 @@ public class Consumer {
         consumerThread = new Thread(new Runnable() {
             @Override
             public void run() {
+                List<Message> messages = new ArrayList<>();
                 while (true) {
                     try {
                         Message message = queue.take();
-                        System.out.println(message);
+                        messages.add(message);
+                        if (messages.size() == 10) {
+                            logMessages(messages);
+                        }
                     } catch (InterruptedException e) {
                         // executing thread has been interrupted, exit loop
                         break;
@@ -30,6 +37,14 @@ public class Consumer {
             }
         });
         consumerThread.start();
+    }
+
+    private void logMessages(List<Message> messages) {
+        messages.sort(Comparator.comparing(Message::getPriority));
+        for (Message message : messages) {
+            System.out.println(message);
+        }
+        messages.clear();
     }
 
     public void stopConsuming() {
